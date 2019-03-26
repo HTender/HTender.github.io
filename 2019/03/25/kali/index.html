@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写在前面 本人在搭建Anisina主题的HEXO博客时，由于前端知识的欠缺，曾一度踩了许多坑，为了那些和我一样第一次搭建博客的朋友们能顺利些，特别在此将搭建的详细步骤一一记下，只要按照这个步骤，即可复现。  复现效果：需要在通过本地写博客，然后SFTP上传到服务器对应的文件夹，即可完成部署。 需要:Centos服务器一台(WD腾讯云)、xshell6(或者其他工具)、xftp5(或者其他工具) 服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kali">
+<meta property="og:url" content="http://HTender.github.io/2019/03/25/kali/index.html">
+<meta property="og:site_name" content="HTender">
+<meta property="og:description" content="写在前面 本人在搭建Anisina主题的HEXO博客时，由于前端知识的欠缺，曾一度踩了许多坑，为了那些和我一样第一次搭建博客的朋友们能顺利些，特别在此将搭建的详细步骤一一记下，只要按照这个步骤，即可复现。  复现效果：需要在通过本地写博客，然后SFTP上传到服务器对应的文件夹，即可完成部署。 需要:Centos服务器一台(WD腾讯云)、xshell6(或者其他工具)、xftp5(或者其他工具) 服">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-25T13:37:28.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kali">
+<meta name="twitter:description" content="写在前面 本人在搭建Anisina主题的HEXO博客时，由于前端知识的欠缺，曾一度踩了许多坑，为了那些和我一样第一次搭建博客的朋友们能顺利些，特别在此将搭建的详细步骤一一记下，只要按照这个步骤，即可复现。  复现效果：需要在通过本地写博客，然后SFTP上传到服务器对应的文件夹，即可完成部署。 需要:Centos服务器一台(WD腾讯云)、xshell6(或者其他工具)、xftp5(或者其他工具) 服">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://HTender.github.io/2019/03/25/kali/">
+
+
+
+
+
+  <title>kali | HTender</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HTender</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HTender.github.io/2019/03/25/kali/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HTender">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HTender">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kali</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-25T21:36:40+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><hr>
+<p>本人在搭建Anisina主题的HEXO博客时，由于前端知识的欠缺，曾一度踩了许多坑，为了那些和我一样第一次搭建博客的朋友们能顺利些，特别在此将搭建的详细步骤一一记下，只要按照这个步骤，即可复现。</p>
+<hr>
+<p>复现效果：需要在通过本地写博客，然后SFTP上传到服务器对应的文件夹，即可完成部署。</p>
+<p>需要:Centos服务器一台(WD腾讯云)、xshell6(或者其他工具)、xftp5(或者其他工具)</p>
+<h3 id="服务器配置篇"><a href="#服务器配置篇" class="headerlink" title="服务器配置篇"></a>服务器配置篇</h3><ul>
+<li><p>SSH密钥：<br>1.新建SSH密钥并下载到本地<br>2.在装载centos系统的服务器时，选择SSH密钥<br>  3.将密钥绑定到服务器上</p>
+</li>
+<li><p>配置安全组：<br>1.建立一个开放全部端口的安全组策略（<em>或者自己选择所需端口</em>）<br>2.将建立的安全组配置到服务器上</p>
+</li>
+<li><p>用SSH密钥连接服务器</p>
+</li>
+</ul>
+<hr>
+<h4 id="TIPS-坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题"><a href="#TIPS-坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题" class="headerlink" title="TIPS:坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题"></a>TIPS:坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题</h4><hr>
+<p>解决方案：先用网页上自带的登录选项登录后<br>输入:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum update -y  #更新系统</span><br><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></p>
+<p>将Port 22 前面的注释#去掉然后在下面额外添加一个不会被占用的(1-65536)端口，在这里以22552为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># If you want to change the port on a SELinux system, you have to tell</span><br><span class="line"># SELinux about this change.</span><br><span class="line"># semanage port -a -t ssh_port_t -p tcp #PORTNUMBER</span><br><span class="line">#</span><br><span class="line">Port 22</span><br><span class="line">Port 22552</span><br><span class="line">#AddressFamily any</span><br><span class="line">AddressFamily inet</span><br><span class="line">#ListenAddress 10.53.69.43</span><br><span class="line">#ListenAddress 10.53.69.43</span><br></pre></td></tr></table></figure></p>
+<p>然后重启你的SSH服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd.service</span><br></pre></td></tr></table></figure></p>
+<p>使用新加的端口Xshell登录即可,其余操作正常进行</p>
+<hr>
+<h3 id="服务器软件篇"><a href="#服务器软件篇" class="headerlink" title="服务器软件篇"></a>服务器软件篇</h3><ul>
+<li>22端口正常情况下:</li>
+</ul>
+<p>1.更新系统<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br></pre></td></tr></table></figure></p>
+<p>2.安装Node.js<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nodejs</span><br></pre></td></tr></table></figure></p>
+<p>3.安装Hexo:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<p>4.新建一个用户<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -m angr</span><br><span class="line">passwd angr</span><br></pre></td></tr></table></figure></p>
+<p>输入两次密码<br>5.赋予sudo权限<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y vim</span><br><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure></p>
+<p>将文件93行左右处修改为(wq!强制编辑退出)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## The COMMANDS section may have other options added to it.</span><br><span class="line">##</span><br><span class="line">## Allow root to run any commands anywhere </span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">angr    ALL=(ALL)       ALL</span><br><span class="line">## Allows members of the &apos;sys&apos; group to run networking, software, </span><br><span class="line">## service management apps and more.</span><br></pre></td></tr></table></figure></p>
+<p>6.切换到新建的用户<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su angr</span><br><span class="line">cd ~</span><br></pre></td></tr></table></figure></p>
+<p>7.创建博客存储的文件夹并生成静态文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog </span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure></p>
+<p>8.安装nginx<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y nginx</span><br><span class="line">systemctl start nginx</span><br><span class="line">systemctl enable nginx #设置为开机自启动</span><br></pre></td></tr></table></figure></p>
+<p>9.更改nginx的server文件夹<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure></p>
+<p>10.更改http块server部分的root值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">listen       80 default_server;</span><br><span class="line">listen       [::]:80 default_server;</span><br><span class="line">server_name  _;</span><br><span class="line">root         /home/angr/blog/public;</span><br></pre></td></tr></table></figure></p>
+<p>11.启动Nginx<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx</span><br></pre></td></tr></table></figure></p>
+<p>这时登录服务器的IP就可以看到Hexo的主页了</p>
+<p>12.权限设置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod -R 755 /home/blog</span><br></pre></td></tr></table></figure></p>
+<h3 id="本地配置篇"><a href="#本地配置篇" class="headerlink" title="本地配置篇"></a>本地配置篇</h3><ul>
+<li><p>本地新建个文件夹安装HEXO及插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd 文件夹路径</span><br><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载Anisina主题</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Haojen/hexo-theme-Anisina.git themes/Anisina</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将Anisina文件夹下的_config.yml覆盖blog文件夹下的_config.yml(提前备份)</p>
+</li>
+<li>_config.yml 配置介绍</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">title: XXX   # XXX&apos;s blog博客左上角处</span><br><span class="line">subtitle:  </span><br><span class="line">author: XXX    # 作者</span><br><span class="line">language: </span><br><span class="line">timezone: </span><br><span class="line"></span><br><span class="line">SEOTitle: XXX&apos;s blog  #百度搜索到的标题</span><br><span class="line">header-img:      #七牛CDN，建一个免费的存储空间，在这里放上图片的外链</span><br><span class="line">email:               #嗯就是你想的那样    </span><br><span class="line">description: &quot;XXX的个人博客&quot;  #手机端可以看到</span><br><span class="line">keyword: TJJazz&apos;s blog # seo key words   #百度搜索你需要搜索的关键词</span><br><span class="line">favicon: http://tjjazz.cn/IMG04.jpg # your favicon png</span><br><span class="line"></span><br><span class="line">url:          #核心 改成自己的IP或者域名</span><br><span class="line">root: /      </span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br><span class="line"></span><br><span class="line">weibo_username: haojen   #对应每个用户名的是该用户名的主页，可以自己打开自己的围脖，知乎看看URL格式</span><br><span class="line">zhihu_username: megahertz</span><br><span class="line">github_username: haojen</span><br><span class="line">twitter_username: ehazon</span><br><span class="line">facebook_username:  </span><br><span class="line">linkedin_username:  </span><br><span class="line"></span><br><span class="line">anchorjs: false               #用不上，不会用</span><br><span class="line"></span><br><span class="line">disqus_username:      #评论框功能不过,disqus需要科学上网</span><br><span class="line"></span><br><span class="line">duoshuo_username:  # 你的多说帐号,同样也是评论框</span><br><span class="line">duoshuo_share: true</span><br><span class="line"></span><br><span class="line">use_livere:   #不知道用不上</span><br><span class="line"></span><br><span class="line">valine:     #评论框的配置，本人不用</span><br><span class="line">  enable: false</span><br><span class="line">  appid:  #Leancloud应用的appId</span><br><span class="line">  appkey:  #Leancloud应用的appKey</span><br><span class="line">  verify: false #验证码</span><br><span class="line">  notify: false #评论回复提醒</span><br><span class="line">  avatar: mm #评论列表默认头像样式</span><br><span class="line">  placeholder: Just go go #评论框占位符</span><br><span class="line">  </span><br><span class="line">ba_track_id:      #好像是用来指定UA头</span><br><span class="line">ga_track_id:             # Format: UA-xxxxxx-xx</span><br><span class="line">ga_domain:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sidebar: true    #需添加一行</span><br><span class="line">sidebar-about-description:  # 个人描述 在侧边框的文字</span><br><span class="line">sidebar-avatar:     # use absolute URL  个人头像</span><br><span class="line"></span><br><span class="line">featured-tags: true                     # whether or not using Feature-Tags</span><br><span class="line">featured-condition-size: 1        #把1设置成0，即使有一篇文章的标签也会显示在右边，如果文章多标签多，就设置的值大一点</span><br><span class="line"></span><br><span class="line">friends:  # 友链</span><br><span class="line"></span><br><span class="line">友链的格式</span><br><span class="line">friends: [</span><br><span class="line">    &#123;</span><br><span class="line">        title: &quot;your friend title&quot;,</span><br><span class="line">        href: &quot;your fiend path&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &quot;your friend title 2&quot;,</span><br><span class="line">        href: &quot;your friend path 2&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">source_dir: source       #目录 layout后面的值</span><br><span class="line">public_dir: public</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads/code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render:</span><br><span class="line"></span><br><span class="line">new_post_name: :title.md # File name of new posts这些都不用更改</span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: false</span><br><span class="line">post_asset_folder: true</span><br><span class="line">relative_link: false</span><br><span class="line">future: true</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: false</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line">default_category: uncategorized #还没改过不清楚，拓展功能应该是</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line">date_format: YYYY-MM-DD    #不用改</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line">per_page: 8       #单页数量</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line">markdown:  #不用改</span><br><span class="line">  plugins:</span><br><span class="line">    - markdown-it-abbr</span><br><span class="line">    - markdown-it-footnote</span><br><span class="line">    - markdown-it-ins</span><br><span class="line">    - markdown-it-sub</span><br><span class="line">    - markdown-it-sup</span><br><span class="line">    - markdown-it-emoji</span><br><span class="line"></span><br><span class="line">theme: Anisina #不用改</span><br><span class="line"></span><br><span class="line">deploy:       #因为我们是Nginx给静态文件server，用不到hexo d 所以不需要改</span><br><span class="line">  type:     </span><br><span class="line">  repo: </span><br><span class="line">  branch: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cdn-url:   #注册一个七牛CDN，这里填你的CDNurl，例如:pec07ambf.bkt.clouddn.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">clip-content: &quot;?imageView2/1/w/1400/h/400/interlace/1/q/90&quot;   #不用改</span><br><span class="line">clip-avatar: &quot;?imageView2/2/w/300/h/300/interlace/1/q/90&quot;</span><br><span class="line">clip-home-post-bg: &quot;?imageView2/1/w/800/h/300/interlace/1/q/70&quot;</span><br><span class="line"></span><br><span class="line">post-default-img: #博文默认的图片</span><br><span class="line">post-default-img-mobile: #移动端显示的图片</span><br><span class="line"></span><br><span class="line">swiftype_key: 不用改</span><br><span class="line"></span><br><span class="line">archive:</span><br><span class="line">    title: archives     #不用改</span><br><span class="line">    description: 可以根据归档日期检索所有文件</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>新建页面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page "Tgas"</span><br><span class="line">hexo new page "archives"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>archives格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: ARCHIVES</span><br><span class="line">date: 2018-08-31 09:10:08</span><br><span class="line">layout: archives</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Tags 格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: TAGS</span><br><span class="line">date: 2018-08-30 23:42:34</span><br><span class="line">layout: tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个博文,博文配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">layout: post</span><br><span class="line">title: &quot;Hola 2016&quot;</span><br><span class="line">subtitle: &quot;hi, I&apos;m XXX&quot;</span><br><span class="line">date: 2016-05-26 06:00</span><br><span class="line">author: &quot;XXX&quot;</span><br><span class="line">header-img: &quot;img/post-default.jpg&quot;  #或者你上传到七牛云的图片</span><br><span class="line">cdn: &apos;header-off&apos;  #不知道为啥，在我的服务器上只有这个配置为off时，第一个博客的图片才会显示在主页上</span><br><span class="line">tags:</span><br><span class="line">    - ceshi1</span><br><span class="line">    - ceshi2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>新建结束后 在本地blog文件夹内预览<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
+<h3 id="SFTP服务篇"><a href="#SFTP服务篇" class="headerlink" title="SFTP服务篇"></a>SFTP服务篇</h3><ul>
+<li>我们需要将我们本地配置好的文件直接SFTP传上去覆盖掉服务器上的blog文件夹<br><a href="https://blog.csdn.net/fenglailea/article/details/78631760" target="_blank" rel="noopener">参考链接</a></li>
+<li>在Xftp上我们用root的的账号连接22端口，提示输入密码时，点取消，用之前服务器的密钥连</li>
+<li>覆盖掉后在博客文件夹输入<br><code>`</code>shell<br>hexo g</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/25/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HTender</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器配置篇"><span class="nav-number">1.1.</span> <span class="nav-text">服务器配置篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TIPS-坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">TIPS:坑点1-部分教育网禁止22端口流量，所以会有SSH连接不上的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器软件篇"><span class="nav-number">1.2.</span> <span class="nav-text">服务器软件篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地配置篇"><span class="nav-number">1.3.</span> <span class="nav-text">本地配置篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SFTP服务篇"><span class="nav-number">1.4.</span> <span class="nav-text">SFTP服务篇</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HTender</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
